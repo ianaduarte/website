@@ -90,6 +90,7 @@ p {
   user-select: none;
   font-size: 1.25rem;
   font-style: italic;
+  cursor: pointer;
 }
 #tab-bar .tab.active {
   background-color: #EAE1E0;
@@ -100,6 +101,7 @@ p {
   color: unset;
   font-weight: bold;
   pointer-events: none;
+  cursor: unset;
 }
 #tab-bar .tab::before, #tab-bar .tab::after {
   content: "";

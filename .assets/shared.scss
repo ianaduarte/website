@@ -89,6 +89,7 @@ p {
 		user-select: none;
 		font-size: 1.25rem;
 		font-style: italic;
+		cursor: pointer;
 
 		&.active {
 			background-color: $primary-bg;
@@ -99,7 +100,8 @@ p {
 
 			color: unset;
 			font-weight: bold;
-			pointer-events: none
+			pointer-events: none;
+			cursor: unset;
 		}
 
 		&::before,
