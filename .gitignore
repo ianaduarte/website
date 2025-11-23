@@ -1,1 +1,5 @@
 .git
+.scratch
+.vscode
+*.css.map
+*.css
