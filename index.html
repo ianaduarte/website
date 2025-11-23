@@ -2,10 +2,40 @@
 <html>
 	<head>
 	    <title>Ian A. Duarte</title>
-		<script src="index.js"></script>
 	    <link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 	</head>
 	<body>
-	    <h1>WORK IN PROGRESS</h1>
+		<div id="tab-bar">
+			<a class="tab active" draggable="false" data-url="/"         >home     <div class="spacer"></div></a>
+			<a class="tab"        draggable="false" data-url="/about"    >about    <div class="spacer"></div></a>
+			<a class="tab"        draggable="false" data-url="/portfolio">portfolio<div class="spacer"></div></a>
+			<a class="tab"        draggable="false" data-url="/contact"  >contact  <div class="spacer"></div></a>
+		</div>
+		<div id="main-window">
+			<div id="content" class="center-flex col">
+				<div class="center-flex row fill">
+					<img src=".assets/temphead.png" alt="" style="height: 16rem;">
+					<div class="spacer"></div>
+				</div>
+				<div class="center-flex row fill">
+					<span>
+						<h2>ian a. duarte</h1>
+						<p>freelance artist</p>
+					</span>
+					<div class="spacer"></div>
+				</div>
+			</div>
+			<hr>
+			<div id="footer">
+				<i class="fa-regular fa-copyright" id="copyright-icon"></i>
+				
+				<p>2026 Ian A. Duarte, </p>
+				<p>All Rights Reserved. </p>
+				<div class="spacer"></div>
+				<p>Not affiliated with Mojang / Microsoft.</p>
+			</div>
+		</div>
+		<script src=".assets/shared.js"></script>
 	</body>
 </html>
