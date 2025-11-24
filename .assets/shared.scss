@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 $primary-bg: #EAE1E0;
 $secondary-bg: #CABFC1;
 $border-color: #413D3F;
 $text-color: #514E4E;
 $light-text-color: #423c3c;
 $hr-color: #B4AAAB;
+
 
 $tab-height: 4rem;
 $window-width: 54rem;
@@ -14,10 +17,11 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-
+	
 	min-height: 100vh;
 	margin: 0;
 	background: linear-gradient(#EBD5D1, #EAB7B3);
+	font-family: "Jetbrains Mono";
 }
 h1 {
 	font-size: 10rem;
@@ -35,8 +39,8 @@ p {
 	
 	border-radius: 50%;
 	animation:
-		spinnerWarp 2s linear infinite,
-		spinnerRotate 2s cubic-bezier(0.356, 0.004, 0.075, 1) infinite;
+	spinnerWarp 2s linear infinite,
+	spinnerRotate 2s cubic-bezier(0.356, 0.004, 0.075, 1) infinite;
 }
 
 @keyframes spinnerWarp {
@@ -58,11 +62,11 @@ p {
 #tab-bar {
 	display: flex;
 	position: relative;
-
+	
 	list-style: none;
 	margin: 0;
 	padding: 0;
-
+	
 	.tab {
 		--lflare-height: 100%;
 		--rflare-height: 100%;
@@ -71,7 +75,7 @@ p {
 		justify-content: center;
 		align-items: center;
 		position: relative;
-
+		
 		background-color: $secondary-bg;
 		height: $tab-height;
 		//width: calc(($window-width - 2rem + 4px) / 4);
@@ -83,27 +87,27 @@ p {
 		transform: translateY(2rem);
 		border-radius: 0.5rem 0.5rem 0 0;
 		border-top: 2px solid $border-color;
-
+		
 		text-decoration: none;
 		color: $text-color;
 		user-select: none;
 		font-size: 1.25rem;
 		font-style: italic;
 		cursor: pointer;
-
+		
 		&.active {
 			background-color: $primary-bg;
 			z-index: 10;
 			padding: 0rem 0.5rem;
 			transition: transform 0s;
 			transform: translateY(calc(0.75rem + 2px));
-
+			
 			color: unset;
 			font-weight: bold;
 			pointer-events: none;
 			cursor: unset;
 		}
-
+		
 		&::before,
 		&::after {
 			content: '';
@@ -120,7 +124,7 @@ p {
 			left: -1rem;
 			height: var(--lflare-height);
 			
-		   	transform: skewX(-10deg);
+			transform: skewX(-10deg);
 			transform-origin: bottom;
 			border-radius: 8px 0 0 0;
 			border-left: 2px solid $border-color;
@@ -134,12 +138,16 @@ p {
 			transform-origin: bottom;
 			border-right: 2px solid $border-color;
 		}
+		
+		&:hover {
+			transform: translateY(1.5rem);
+		}
 	}
 }
 #main-window {
 	display: flex;
 	flex-direction: column;
-
+	
 	width: $window-width;
 	height: $window-height;
 	background-color: $primary-bg;
@@ -147,7 +155,7 @@ p {
 	gap: 0rem;
 	border: 2px solid $border-color;
 	z-index: 5;
-
+	
 	& > hr {
 		width: 100%;
 		height: 2px;
@@ -155,7 +163,7 @@ p {
 		border-radius: 2px;
 		background-color: $hr-color;
 	}
-
+	
 	#content {
 		flex-grow: 1;
 		padding: 0 2rem;
@@ -164,10 +172,10 @@ p {
 			margin-bottom: 0;
 		}
 		& p {
-			margin-top: 0;
+			margin: 0;
 		}
 	}
-
+	
 	#footer {
 		display: flex;
 		flex-direction: row;
@@ -176,13 +184,13 @@ p {
 		gap: 0.5rem;
 		margin: 0rem 0.75rem 0.5rem 0.75rem;
 		color: $text-color;
-
+		
 		& > p {
 			margin: 0;
 			padding: 0;
 			line-height: 1rem;
 		}
-
+		
 		#disclaimer {
 			width: 37rem;
 			color: $light-text-color;
@@ -194,28 +202,113 @@ p {
 .spacer {
 	flex-grow: 1;
 }
-.center-flex {
+
+.flex {
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	
-	&.row {
-		flex-direction: row;
-		
-		&.fill {
-			width: 100%;
-		}
+	&.start {
+		justify-content: start;
 	}
+	&.end {
+		justify-content: end;
+	}
+	&.center {
+		justify-content: center;
+	}
+	&.between {
+		justify-content: space-between;
+	}
+	&.around {
+		justify-content: space-around;
+	}
+	&.evenly {
+		justify-content: space-evenly;
+	}
+	
+	&.items-start {
+		align-items: start;
+	}
+	&.items-end {
+		align-items: end;
+	}
+	&.items-center {
+		align-items: center;
+	}
+	&.items-baseline {
+		align-items: baseline;
+	}
+	&.items-stretch {
+		align-items: stretch;
+	}
+	
 	&.col {
 		flex-direction: column;
-		
-		&.fill {
-			height: 100%;
-		}
 	}
+	&.row {
+		flex-direction: row;
+	}
+	&.rcol {
+		flex-direction: column-reverse;
+	}
+	&.rrow {
+		flex-direction: row-reverse;
+	}
+	
+	&.wrap {
+		flex-wrap: wrap;
+	}
+	&.nowrap {
+		flex-wrap: nowrap;
+	}
+	&.wrap-reverse {
+		flex-wrap: wrap-reverse;
+	}
+	
+	&.content-start {
+		align-content: flex-start;
+	}
+	&.content-end {
+		align-content: flex-end;
+	}
+	&.content-center {
+		align-content: center;
+	}
+	&.content-between {
+		align-content: space-between;
+	}
+	&.content-around {
+		align-content: space-around;
+	}
+	&.content-stretch {
+		align-content: stretch;
+	}
+	
+	&.grow {
+		flex-grow: 1;
+	}
+	&.shrink {
+		flex-shrink: 1;
+	}
+}
+.flex-grow {
+	flex-grow: 1;
+}
+.fwidth {
+	width: 100%;
+}
+.fheight {
+	height: 100%;
 }
 
 #copyright-icon {
 	width: 1rem;
 	height: 1rem;
+}
+
+#background-container {
+	position: absolute;
+	z-index: -1;
+}
+#back-canvas {
+	display: none;
 }
