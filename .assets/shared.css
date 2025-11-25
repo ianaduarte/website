@@ -287,13 +287,12 @@ p {
   height: 1rem;
 }
 
-#background-container {
+#main-canvas {
   position: absolute;
-  z-index: -1;
-}
-
-#back-canvas {
-  display: none;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 /*# sourceMappingURL=shared.css.map */

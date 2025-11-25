@@ -1,3 +1,5 @@
+import * as Background from "./background/main.js";
+
 const tabs = document.querySelectorAll('.tab');
 const animationDuration = 300;
 
@@ -57,122 +59,13 @@ tabs.forEach((tab, index) => {
     });
 });
 
-
-class Bubble {
-	constructor(x, y, radius, speed) {
-		this.x = x;
-		this.y = y;
-		this.initialRadius = radius;
-		this.radius = radius;
-		this.speed = speed;
-	}
-	
-	update(delta) {
-		this.x -= 1.2;
-		this.y -= this.speed * delta;
-		this.radius *= 0.60 ** delta;
-	}
-	draw(ctx) {
-		ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-        
-        const grad = ctx.createRadialGradient(this.x, this.y, 1, this.x, this.y, this.radius);
-        grad.addColorStop(0, `rgba(0, 0, 0, ${this.radius / this.initialRadius})`);
-        grad.addColorStop(1, '#00000000');
-        ctx.fillStyle = grad;
-        ctx.fill();
-        ctx.closePath();
-	}
-}
-const mainCanvas = document.getElementById("main-canvas");
-const backCanvas = document.getElementById("back-canvas");
-const mainCtx = mainCanvas.getContext("2d");
-const backCtx = backCanvas.getContext("2d");
-mainCanvas.width  = backCanvas.width  = window.innerWidth;
-mainCanvas.height = backCanvas.height = window.innerHeight;
-
-let bubbles = [];
-let lastFrame = Date.now();
-
-window.addEventListener("resize", () => {
-	mainCanvas.width  = backCanvas.width  = window.innerWidth;
-	mainCanvas.height = backCanvas.height = window.innerHeight;
-	bubbles.length = 0;
-});
-
-const amplitude = 50; 
-const frequency = 0.0075; 
-let phase = 0;
-
-function sampleWave(x) {
-    return Math.sin(x * frequency + phase) * amplitude;
-}
-
-function drawSine(ctx, width, height, delta) {
-	phase += 0.6 * delta;
-	const center = height / 2;
-	ctx.fillStyle = 'black';
-	
-	ctx.beginPath();
-	ctx.moveTo(0, height); 
-	
-	let yStart = sampleWave(0);
-	ctx.lineTo(0, yStart + center);
-	
-	for(let x = 1; x < width; x++) {
-		const y = sampleWave(x);
-		ctx.lineTo(x, y + center);
-	}
-	
-	let yEnd = sampleWave(width);
-	ctx.lineTo(width, yEnd + center);
-	ctx.lineTo(width, height); 
-	ctx.fill();
-	ctx.closePath(); 
-}
+let lastFrame = 0;
 
 function drawFrame(currentFrame) {
-	let delta = (currentFrame - lastFrame) * 1e-3;
+	const frameDelta = currentFrame - lastFrame;
+	const partialFrames = frameDelta / 60;
 	
-	if(bubbles.length < 2048) {
-		const radius = Math.random() * 48 + 64;
-		const x = Math.random() * backCanvas.width;
-		const y = sampleWave(x) + backCanvas.height / 2 + radius;
-        const speed  = Math.random() * 24 + 32;
-		bubbles.push(new Bubble(x, y, radius, speed));
-	}
-	
-	backCtx.clearRect(0, 0, backCanvas.width, backCanvas.height);
-	drawSine(backCtx, backCanvas.width, backCanvas.height, delta);
-	
-	let newBubbles = [];
-	for(const bubble of bubbles) {
-        bubble.update(delta);
-		if(bubble === undefined) continue;
-		if(bubble.radius === Infinity) continue;
-        
-        if(bubble.radius <= 1 || bubble.y < (-bubble.radius)) continue;
-        
-        bubble.draw(backCtx);
-        newBubbles.push(bubble);
-    }
-	bubbles = newBubbles;
-	
-	let imageData = backCtx.getImageData(0, 0, backCanvas.width, backCanvas.height);
-	let pixels = imageData.data;
-
-	const n = pixels.length;
-    for(let i = 0; i < n; i += 4) {
-        if(pixels[i + 3] < 24) {
-            pixels[i + 3] = 0;
-        } else {
-            pixels[i    ] = 0xEA;
-            pixels[i + 1] = 0xB7;
-            pixels[i + 2] = 0xB3;
-            pixels[i + 3] = 0xFF;
-        }
-    }
-	mainCtx.putImageData(imageData, 0, 0);
+	Background.drawBackground(partialFrames);
 	
 	lastFrame = currentFrame;
 	requestAnimationFrame(drawFrame);
